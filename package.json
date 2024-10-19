@@ -3,6 +3,7 @@
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
+    "build": "bun run --filter '*' build",
     "lint": "bun x --bun biome ci",
     "fix": "bun x --bun biome check --write"
   },
@@ -10,6 +11,8 @@
     "@onecomme-replacement-plugin/common": "workspace:*"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4"
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.1.11",
+    "typescript": "^5.6.3"
   }
 }
