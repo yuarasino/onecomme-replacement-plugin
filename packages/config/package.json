@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "bun x --bun vite dev",
-    "build": "bun x --bun vite build"
+    "build": "bun x --bun vite build",
+    "test": "bun test --preload ./test/preload.ts"
   },
   "dependencies": {
     "@onecomme-replacement-plugin/common": "workspace:*",
@@ -11,6 +12,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@happy-dom/global-registrator": "^15.7.4",
+    "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.2",
