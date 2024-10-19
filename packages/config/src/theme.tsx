@@ -1,10 +1,14 @@
+import { orange } from "@mui/material/colors"
 import { createTheme } from "@mui/material/styles"
-import '@fontsource-variable/noto-sans-jp';
-
 
 export default createTheme({
   cssVariables: true,
+  palette: {
+    primary: {
+      main: orange[800],
+    },
+  },
   typography: {
-    fontFamily: "'Noto Sans JP Variable', sans-serif",
+    fontFamily: "'Noto Sans JP', sans-serif",
   },
 })
