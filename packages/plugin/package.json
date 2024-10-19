@@ -2,7 +2,8 @@
   "name": "@onecomme-replacement-plugin/plugin",
   "type": "module",
   "scripts": {
-    "build": "bun x --bun vite build"
+    "build": "bun x --bun vite build",
+    "test": "bun test"
   },
   "dependencies": {
     "@onecomme-replacement-plugin/common": "workspace:*",
