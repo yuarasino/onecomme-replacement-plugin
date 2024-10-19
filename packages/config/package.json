@@ -1,0 +1,7 @@
+{
+  "name": "@onecomme-replacement-plugin/config",
+  "type": "module",
+  "dependencies": {
+    "@onecomme-replacement-plugin/common": "workspace:*"
+  }
+}

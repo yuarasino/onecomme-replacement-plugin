@@ -1,0 +1,3 @@
+{
+  "extends": ["@onecomme-replacement-plugin/common/tsconfig.json"]
+}

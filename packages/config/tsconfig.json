@@ -1,0 +1,7 @@
+{
+  "extends": ["@onecomme-replacement-plugin/common/tsconfig.json"],
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+  }
+}
