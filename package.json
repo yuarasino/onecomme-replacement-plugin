@@ -2,7 +2,14 @@
   "name": "onecomme-replacement-plugin",
   "type": "module",
   "workspaces": ["packages/*"],
+  "scripts": {
+    "lint": "bun x --bun biome ci",
+    "fix": "bun x --bun biome check --write"
+  },
   "dependencies": {
     "@onecomme-replacement-plugin/common": "workspace:*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
   }
 }
