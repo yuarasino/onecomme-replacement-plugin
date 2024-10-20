@@ -1,12 +1,12 @@
-export type ReplacementConfig = {
+export type Replacement = {
   id: string
-  name: string
   active: boolean
+  name: string
   pattern: string
   image: string
-  size: string
+  size: number
 }
 
-export type PluginConfig = {
-  replacementConfigs: ReplacementConfig[]
+export type Config = {
+  replacements: Replacement[]
 }

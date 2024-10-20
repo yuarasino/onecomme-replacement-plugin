@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box"
 
 import Header from "./sections/Header"
-import Sidebar from "./sections/Sidebar"
 import Main from "./sections/Main"
+import Sidebar from "./sections/Sidebar"
 
 import * as consts from "@onecomme-replacement-plugin/common/src/consts"
 
