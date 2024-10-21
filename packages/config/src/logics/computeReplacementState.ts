@@ -38,6 +38,21 @@ export const computeOnAddReplacement = (
 }
 
 /**
+ * 置換設定選択時の状態を計算して返す
+ * @param state 前の状態
+ * @returns 今の状態
+ */
+export const computeOnSelectReplacement = (
+  state: ReplacementState,
+  targetId: string,
+): ReplacementState => {
+  return {
+    replacements: state.replacements,
+    editingId: targetId,
+  }
+}
+
+/**
  * 置換設定有効化/無効化時の状態を計算して返す
  * @param state 前の状態
  * @returns 今の状態
@@ -52,7 +67,7 @@ export const computeOnToggleReplacement = (
   if (targetIndex === -1) throw new Error()
   const newReplacement: Replacement = {
     ...state.replacements[targetIndex],
-    active: true,
+    active: !state.replacements[targetIndex].active,
   }
   return {
     replacements: [
@@ -92,7 +107,7 @@ export const computeOnCopyReplacement = (
  * @param state 前の状態
  * @returns 今の状態
  */
-export const computeOnRemoveReplacement = (
+export const computeOnDeleteReplacement = (
   state: ReplacementState,
   targetId: string,
 ): ReplacementState => {

@@ -1,13 +1,7 @@
-import { orange } from "@mui/material/colors"
-import { createTheme } from "@mui/material/styles"
+import createTheme from "@mui/material/styles/createTheme"
 
 export default createTheme({
   cssVariables: true,
-  palette: {
-    primary: {
-      main: orange[800],
-    },
-  },
   typography: {
     fontFamily: "'Noto Sans JP', sans-serif",
   },
