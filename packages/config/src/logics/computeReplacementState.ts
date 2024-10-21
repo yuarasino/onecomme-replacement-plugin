@@ -1,3 +1,5 @@
+import { arrayMove } from "@dnd-kit/sortable"
+
 import { generateNewId } from "./generateNewId"
 
 import type { Replacement } from "@onecomme-replacement-plugin/common/src/types"
@@ -5,7 +7,7 @@ import type { Replacement } from "@onecomme-replacement-plugin/common/src/types"
 import type { ReplacementState } from "../types"
 
 /**
- * 置換設定読込時の状態を計算して返す
+ * 置換設定読み込み時の状態を計算して返す
  * @param state 前の状態
  * @returns 今の状態
  */
@@ -34,6 +36,29 @@ export const computeOnAddReplacement = (
   return {
     replacements: [...state.replacements, newReplacement],
     editingId: newReplacement.id,
+  }
+}
+
+/**
+ * 置換設定並び替え時の状態を計算して返す
+ * @param state 前の状態
+ * @returns 今の状態
+ */
+export const computeOnSortReplacement = (
+  state: ReplacementState,
+  targetId: string,
+  overId: string,
+): ReplacementState => {
+  const targetIndex = state.replacements.findIndex(
+    (replacement) => replacement.id === targetId,
+  )
+  const overIndex = state.replacements.findIndex(
+    (replacement) => replacement.id === overId,
+  )
+  if (targetIndex === -1 || overIndex === -1) throw new Error()
+  return {
+    replacements: arrayMove(state.replacements, targetIndex, overIndex),
+    editingId: state.editingId,
   }
 }
 

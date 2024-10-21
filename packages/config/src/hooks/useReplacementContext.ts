@@ -7,6 +7,7 @@ import {
   computeOnLoadReplacement,
   computeOnSaveReplacement,
   computeOnSelectReplacement,
+  computeOnSortReplacement,
   computeOnToggleReplacement,
 } from "../logics/computeReplacementState"
 
@@ -16,6 +17,7 @@ type ReplacementContext = {
   replacementState: ReplacementState
   loadReplacement: () => void
   addReplacement: () => void
+  sortReplacement: (targetId: string, overId: string) => void
   selectReplacement: (targetId: string) => void
   toggleReplacement: (targetId: string) => void
   copyReplacement: (targetId: string) => void
@@ -39,6 +41,8 @@ export const useReplacementContext = (): ReplacementContext => {
       replacementState: state,
       loadReplacement: () => setState(computeOnLoadReplacement(state)),
       addReplacement: () => setState(computeOnAddReplacement(state)),
+      sortReplacement: (targetId, overId) =>
+        setState(computeOnSortReplacement(state, targetId, overId)),
       selectReplacement: (targetId) =>
         setState(computeOnSelectReplacement(state, targetId)),
       toggleReplacement: (targetId) =>
