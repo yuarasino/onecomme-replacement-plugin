@@ -1,12 +1,20 @@
-import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import App from "./App.tsx"
+
+import theme from "./theme"
+
+import { CssBaseline, ThemeProvider } from "@mui/material"
+import { StrictMode } from "react"
+
+import App from "./App"
 
 const elem = document.getElementById("root")
-if (!elem) throw Error()
+if (!elem) throw new Error()
 const root = createRoot(elem)
 root.render(
   <StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
   </StrictMode>,
 )
