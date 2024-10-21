@@ -1,10 +1,17 @@
+import theme from "./theme"
+
 import * as consts from "@onecomme-replacement-plugin/common/src/consts"
+
+import { Box, CssBaseline, ThemeProvider } from "@mui/material"
+
+import Layout from "./components/Layout"
 
 export default function App() {
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <title>{consts.PLUGIN_NAME}</title>
-      <h1>{consts.PLUGIN_NAME}</h1>
-    </div>
+      <CssBaseline />
+      <Layout />
+    </ThemeProvider>
   )
 }
