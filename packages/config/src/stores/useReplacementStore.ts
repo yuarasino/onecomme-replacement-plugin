@@ -70,6 +70,19 @@ export const deleteItemAtom = atom(null, (get, set, value: ReplacementItem) => {
   set(editingItemAtom, editingItem?.id !== value.id ? editingItem : undefined)
 })
 
+export const editItemAtom = atom(null, (get, set, value: ReplacementItem) => {
+  const items = get(itemsAtom)
+  const newItem = {
+    ...value,
+    pattern: value.pattern.trim(),
+  }
+  set(
+    itemsAtom,
+    items.map((item) => (item.id === value.id ? newItem : item)),
+  )
+  set(editingItemAtom, newItem)
+})
+
 export default function useReplacementStore() {
   const replacement = useAtomValue(replacementAtom)
   const items = useAtomValue(itemsAtom)
@@ -80,6 +93,7 @@ export default function useReplacementStore() {
   const toggleItem = useSetAtom(toggleItemAtom)
   const copyItem = useSetAtom(copyItemAtom)
   const deleteItem = useSetAtom(deleteItemAtom)
+  const editItem = useSetAtom(editItemAtom)
 
   return useMemo(
     () => ({
@@ -92,6 +106,7 @@ export default function useReplacementStore() {
       toggleItem,
       copyItem,
       deleteItem,
+      editItem,
     }),
     [
       replacement,
@@ -103,6 +118,7 @@ export default function useReplacementStore() {
       toggleItem,
       copyItem,
       deleteItem,
+      editItem,
     ],
   )
 }

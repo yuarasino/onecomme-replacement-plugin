@@ -5,7 +5,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
-import { Button, List, Toolbar, Typography } from "@mui/material"
+import { Box, Button, List, Toolbar, Typography } from "@mui/material"
 
 import useReplacementStore from "../stores/useReplacementStore"
 import ReplacementListItem from "./ReplacementListItem"
@@ -24,7 +24,7 @@ export default function ReplacementList() {
   }
 
   return (
-    <>
+    <Box>
       <Toolbar
         variant="dense"
         sx={{ backgroundColor: "grey.100", boxShadow: 1, zIndex: 1 }}
@@ -45,6 +45,6 @@ export default function ReplacementList() {
           </List>
         </SortableContext>
       </DndContext>
-    </>
+    </Box>
   )
 }
