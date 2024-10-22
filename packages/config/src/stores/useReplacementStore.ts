@@ -27,11 +27,15 @@ export const addItemAtom = atom(null, (get, set) => {
     image: "fugu.png",
     size: 36,
   }
-  set(itemsAtom, items.concat(newItem))
+  set(itemsAtom, [newItem, ...items])
   set(editingItemAtom, newItem)
 })
 
-export const selectItemAtom = atom(null, (get, set, value: ReplacementItem) => {
+export const moveItemAtom = atom(null, (_, set, value: ReplacementItem[]) => {
+  set(itemsAtom, value)
+})
+
+export const selectItemAtom = atom(null, (_, set, value: ReplacementItem) => {
   const newItem = { ...value }
   set(editingItemAtom, newItem)
 })
@@ -52,7 +56,7 @@ export const copyItemAtom = atom(null, (get, set, value: ReplacementItem) => {
     id: generateNewId(items.map((item) => item.id)),
     active: true,
   }
-  set(itemsAtom, items.concat(newItem))
+  set(itemsAtom, [newItem, ...items])
   set(editingItemAtom, newItem)
 })
 
@@ -71,6 +75,7 @@ export default function useReplacementStore() {
   const items = useAtomValue(itemsAtom)
   const editingItem = useAtomValue(editingItemAtom)
   const addItem = useSetAtom(addItemAtom)
+  const moveItem = useSetAtom(moveItemAtom)
   const selectItem = useSetAtom(selectItemAtom)
   const toggleItem = useSetAtom(toggleItemAtom)
   const copyItem = useSetAtom(copyItemAtom)
@@ -82,6 +87,7 @@ export default function useReplacementStore() {
       items,
       editingItem,
       addItem,
+      moveItem,
       selectItem,
       toggleItem,
       copyItem,
@@ -92,6 +98,7 @@ export default function useReplacementStore() {
       items,
       editingItem,
       addItem,
+      moveItem,
       selectItem,
       toggleItem,
       copyItem,

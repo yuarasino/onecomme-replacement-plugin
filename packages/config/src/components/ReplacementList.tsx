@@ -1,10 +1,27 @@
+import { DndContext } from "@dnd-kit/core"
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable"
 import { Button, List, Toolbar, Typography, colors } from "@mui/material"
 
 import useReplacementStore from "../stores/useReplacementStore"
 import ReplacementListItem from "./ReplacementListItem"
 
+import type { DragEndEvent } from "@dnd-kit/core"
+
 export default function ReplacementList() {
-  const { items, addItem } = useReplacementStore()
+  const { items, addItem, moveItem } = useReplacementStore()
+
+  const onMoveItem = ({ active, over }: DragEndEvent) => {
+    if (over && active.id !== over.id) {
+      const oldIndex = items.findIndex((item) => item.id === active.id)
+      const newIndex = items.findIndex((item) => item.id === over.id)
+      moveItem(arrayMove(items, oldIndex, newIndex))
+    }
+  }
 
   return (
     <>
@@ -19,11 +36,15 @@ export default function ReplacementList() {
           追加
         </Button>
       </Toolbar>
-      <List dense disablePadding sx={{ overflow: "auto" }}>
-        {items.toReversed().map((item) => (
-          <ReplacementListItem key={item.id} item={item} />
-        ))}
-      </List>
+      <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={onMoveItem}>
+        <SortableContext items={items} strategy={verticalListSortingStrategy}>
+          <List dense disablePadding sx={{ overflow: "auto" }}>
+            {items.map((item) => (
+              <ReplacementListItem key={item.id} item={item} />
+            ))}
+          </List>
+        </SortableContext>
+      </DndContext>
     </>
   )
 }

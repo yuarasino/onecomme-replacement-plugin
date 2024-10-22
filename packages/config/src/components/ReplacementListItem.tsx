@@ -1,3 +1,5 @@
+import { useSortable } from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
 import { Delete, DragIndicator, FileCopy } from "@mui/icons-material"
 import {
   IconButton,
@@ -8,8 +10,6 @@ import {
 } from "@mui/material"
 
 import useReplacementStore from "../stores/useReplacementStore"
-
-import type { ChangeEvent } from "react"
 
 import type { ReplacementItem } from "@onecomme-replacement-plugin/common/src/types"
 
@@ -23,10 +23,27 @@ export default function ReplacementListItem({
   const { editingItem, selectItem, toggleItem, copyItem, deleteItem } =
     useReplacementStore()
 
+  const {
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+    setNodeRef,
+    setActivatorNodeRef,
+  } = useSortable({ id: item.id })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition: transition,
+  }
+
   return (
     <ListItem
       divider
       disablePadding
+      style={style}
+      ref={setNodeRef}
       secondaryAction={
         <>
           <IconButton onClick={() => copyItem(item)}>
@@ -42,7 +59,16 @@ export default function ReplacementListItem({
         selected={item.id === editingItem?.id}
         onClick={() => selectItem(item)}
       >
-        <DragIndicator fontSize="small" />
+        <IconButton
+          disableRipple
+          edge="start"
+          {...attributes}
+          {...listeners}
+          ref={setActivatorNodeRef}
+          sx={{ cursor: isDragging ? "grabbing" : "grab" }}
+        >
+          <DragIndicator fontSize="small" />
+        </IconButton>
         <Switch
           size="small"
           checked={item.active}
