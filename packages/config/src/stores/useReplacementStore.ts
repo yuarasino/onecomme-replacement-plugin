@@ -19,7 +19,7 @@ export const editingItemAtom = atom(undefined as ReplacementItem | undefined)
 
 export const addItemAtom = atom(null, (get, set) => {
   const items = get(itemsAtom)
-  const newItem: ReplacementItem = {
+  const newItem = {
     id: generateNewId(items.map((item) => item.id)),
     active: true,
     name: "ふぐ",
@@ -27,8 +27,43 @@ export const addItemAtom = atom(null, (get, set) => {
     image: "fugu.png",
     size: 36,
   }
-  set(itemsAtom, [...items, newItem])
+  set(itemsAtom, items.concat(newItem))
   set(editingItemAtom, newItem)
+})
+
+export const selectItemAtom = atom(null, (get, set, value: ReplacementItem) => {
+  const newItem = { ...value }
+  set(editingItemAtom, newItem)
+})
+
+export const toggleItemAtom = atom(null, (get, set, value: ReplacementItem) => {
+  const items = get(itemsAtom)
+  const newItem = { ...value, active: !value.active }
+  set(
+    itemsAtom,
+    items.map((item) => (item.id === value.id ? newItem : item)),
+  )
+})
+
+export const copyItemAtom = atom(null, (get, set, value: ReplacementItem) => {
+  const items = get(itemsAtom)
+  const newItem = {
+    ...value,
+    id: generateNewId(items.map((item) => item.id)),
+    active: true,
+  }
+  set(itemsAtom, items.concat(newItem))
+  set(editingItemAtom, newItem)
+})
+
+export const deleteItemAtom = atom(null, (get, set, value: ReplacementItem) => {
+  const items = get(itemsAtom)
+  const editingItem = get(editingItemAtom)
+  set(
+    itemsAtom,
+    items.filter((item) => item.id !== value.id),
+  )
+  set(editingItemAtom, editingItem?.id !== value.id ? editingItem : undefined)
 })
 
 export default function useReplacementStore() {
@@ -36,6 +71,10 @@ export default function useReplacementStore() {
   const items = useAtomValue(itemsAtom)
   const editingItem = useAtomValue(editingItemAtom)
   const addItem = useSetAtom(addItemAtom)
+  const selectItem = useSetAtom(selectItemAtom)
+  const toggleItem = useSetAtom(toggleItemAtom)
+  const copyItem = useSetAtom(copyItemAtom)
+  const deleteItem = useSetAtom(deleteItemAtom)
 
   return useMemo(
     () => ({
@@ -43,7 +82,20 @@ export default function useReplacementStore() {
       items,
       editingItem,
       addItem,
+      selectItem,
+      toggleItem,
+      copyItem,
+      deleteItem,
     }),
-    [replacement, items, editingItem, addItem],
+    [
+      replacement,
+      items,
+      editingItem,
+      addItem,
+      selectItem,
+      toggleItem,
+      copyItem,
+      deleteItem,
+    ],
   )
 }
