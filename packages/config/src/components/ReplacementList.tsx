@@ -5,7 +5,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
-import { Button, List, Toolbar, Typography, colors } from "@mui/material"
+import { Button, List, Toolbar, Typography } from "@mui/material"
 
 import useReplacementStore from "../stores/useReplacementStore"
 import ReplacementListItem from "./ReplacementListItem"
@@ -27,7 +27,7 @@ export default function ReplacementList() {
     <>
       <Toolbar
         variant="dense"
-        sx={{ backgroundColor: colors.grey[50], boxShadow: 1, zIndex: 1 }}
+        sx={{ backgroundColor: "grey.100", boxShadow: 1, zIndex: 1 }}
       >
         <Typography variant="subtitle1" component="div" sx={{ flexGrow: 1 }}>
           テキスト置換設定

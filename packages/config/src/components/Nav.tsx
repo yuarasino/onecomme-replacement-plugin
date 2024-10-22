@@ -9,7 +9,7 @@ export default function Nav() {
       sx={{
         width: 360,
         flexShrink: 0,
-        "& .MuiDrawer-paper": { width: 360, boxSizing: "border-box" },
+        "& .MuiDrawer-paper": { width: 360 },
       }}
     >
       <Toolbar />
