@@ -3,7 +3,7 @@ import { focusAtom } from "jotai-optics"
 import { useMemo } from "react"
 
 import generateNewId from "../utils/generateNewId"
-import { configAtom } from "./useConfigStore"
+import { configAtom, saveConfigAtom } from "./useConfigStore"
 
 import type { ReplacementItem } from "@onecomme-replacement-plugin/common/src/types"
 
@@ -29,10 +29,12 @@ export const addItemAtom = atom(null, (get, set) => {
   }
   set(itemsAtom, [newItem, ...items])
   set(editingItemAtom, newItem)
+  set(saveConfigAtom)
 })
 
 export const moveItemAtom = atom(null, (_, set, value: ReplacementItem[]) => {
   set(itemsAtom, value)
+  set(saveConfigAtom)
 })
 
 export const selectItemAtom = atom(null, (_, set, value: ReplacementItem) => {
@@ -47,6 +49,7 @@ export const toggleItemAtom = atom(null, (get, set, value: ReplacementItem) => {
     itemsAtom,
     items.map((item) => (item.id === value.id ? newItem : item)),
   )
+  set(saveConfigAtom)
 })
 
 export const copyItemAtom = atom(null, (get, set, value: ReplacementItem) => {
@@ -58,6 +61,7 @@ export const copyItemAtom = atom(null, (get, set, value: ReplacementItem) => {
   }
   set(itemsAtom, [newItem, ...items])
   set(editingItemAtom, newItem)
+  set(saveConfigAtom)
 })
 
 export const deleteItemAtom = atom(null, (get, set, value: ReplacementItem) => {
@@ -68,6 +72,7 @@ export const deleteItemAtom = atom(null, (get, set, value: ReplacementItem) => {
     items.filter((item) => item.id !== value.id),
   )
   set(editingItemAtom, editingItem?.id !== value.id ? editingItem : undefined)
+  set(saveConfigAtom)
 })
 
 export const editItemAtom = atom(null, (get, set, value: ReplacementItem) => {
@@ -81,6 +86,7 @@ export const editItemAtom = atom(null, (get, set, value: ReplacementItem) => {
     items.map((item) => (item.id === value.id ? newItem : item)),
   )
   set(editingItemAtom, newItem)
+  set(saveConfigAtom)
 })
 
 export default function useReplacementStore() {

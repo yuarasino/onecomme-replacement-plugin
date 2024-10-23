@@ -52,7 +52,12 @@ export default function ReplacementEditor() {
         <Typography variant="caption" component="div" sx={{ flexGrow: 1 }}>
           {`ID: ${editingItem?.id ?? ""}`}
         </Typography>
-        <Button variant="contained" type="submit" size="small">
+        <Button
+          variant="contained"
+          type="submit"
+          size="small"
+          disabled={!editingItem}
+        >
           保存
         </Button>
       </Toolbar>
